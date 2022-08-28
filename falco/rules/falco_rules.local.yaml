@@ -26,4 +26,7 @@
   priority: ERROR
   tags: [users, container]
 
+- list: my_programs
+  append: true
+  items: [cp]
 # Or override/append to any rule, macro, or list from the Default Rules
