@@ -3193,6 +3193,15 @@
   output: Java process class file download (user=%user.name user_loginname=%user.loginname user_loginuid=%user.loginuid event=%evt.type connection=%fd.name server_ip=%fd.sip server_port=%fd.sport proto=%fd.l4proto process=%proc.name command=%proc.cmdline parent=%proc.pname buffer=%evt.buffer container_id=%container.id image=%container.image.repository)
   priority: CRITICAL
   tags: [mitre_initial_access]
+  
+- list: my_programs
+  items: [ls, cat, pwd]
+
+- rule: my_programs_opened_file
+  desc: track whenever a set of programs opens a file
+  condition: proc.name in (my_programs) and evt.type=open
+  output: a tracked program opened a file (user=%user.name command=%proc.cmdline file=%fd.name)
+  priority: INFO
 
 # Application rules have moved to application_rules.yaml. Please look
 # there if you want to enable them by adding to
